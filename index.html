@@ -51,11 +51,36 @@
                  xhr.setRequestHeader("Authorization", "Bearer " + token)
             }, success: function(data2){
               updateData(data, data2)
-              if(isInInterval("danceability", 0.1329, 0.661, data2)){
+              var attributes = [['danceability', 0.1329, 0.661],
+                                ['energy', 0.155272333, 0.684791005],
+                                ['key', 3.602197327, 5.367724868],
+                                ['loudness', 1.810178023, -5.696904762],
+                                ['mode', 0.494733892, 0.576719577],
+                                ['speechiness', 0.077730531, 0.082809788],
+                                ['acousticness', 0.203212384, 0.167593386],
+                                ['instrumentalness', 0.132974278, 0.029645803],
+                                ['liveness', 0.128430981, 0.17677672],
+                                ['valence', 0.220038455, 0.532024603],
+                                ['temp', 27.79606301, 120.7430794],
+                                ['duration_ms', 43545.19874, 222159.1958],
+                                ['time_signature', 0.162520531, 3.989417989]]
+              count = 0;
+              for (i = 0; i < attributes.length; i++) {
+                  if(isInInterval(attributes[i][0], attributes[i][1], attributes[i][2], data2)) {
+                    count++
+                  }
+              }
+              console.log(count)
+              if(count >= 8) {
                 $("#result").html("Sounds like a hit!")
-              }else{
+              } else {
                 $("#result").html("Not a hit")
               }
+//               if(isInInterval("danceability", 0.1329, 0.661, data2)){
+//                 $("#result").html("Sounds like a hit!")
+//               }else{
+//                 $("#result").html("Not a hit")
+//               }
             }
           })
         }
@@ -67,11 +92,16 @@
    }
 
    function isInInterval(attr, std, avg, data){
-    alert((data[attr] > avg - ((std/19.4679223339)*1.645)) && (data[attr] < avg + ((std/19.4679223339)*1.645)))
-    console.log(avg - ((std/19.4679223339)*1.645))
-    console.log(avg + ((std/19.4679223339)*1.645))
-    console.log(data[attr])
-    return (data[attr] > avg - ((std/19.4679223339)*1.645)) && (data[attr] < avg + ((std/19.4679223339)*1.645))
+    interval = 1
+    // alert((data[attr] > avg - ((std/19.4679223339)*interval)) && (data[attr] < avg + ((std/19.4679223339)*interval)))
+    // console.log(avg - ((std)*interval))
+    // console.log(avg + ((std)*interval))
+    // console.log(data[attr])
+//     console.log(Math.abs((data[attr] - avg) / (std)))
+  //  console.log("dab")
+    // return (data[attr] > avg - ((std/19.4679223339)*interval)) && (data[attr] < avg + ((std/19.4679223339)*interval))
+    // return (data[attr] > avg - ((std)*interval)) && (data[attr] < avg + ((std)*interval))
+   return (Math.abs((data[attr] - avg) / (std)) < interval)
    }
 
    function updateData(data, data2){
