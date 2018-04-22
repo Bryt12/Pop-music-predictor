@@ -2,23 +2,37 @@
 <html>
 <head>
   <title>Spotify Web Playback SDK Quick Start Tutorial</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body style="background-color: #A1BAD1">
   <div>
-    <h1>Will the current song be a hit????</h1>
-    <button type="button" class="btn btn-primary" onclick = "doThing()">Find</button>
-    <div class = "energy">
-        <div class ="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-            70%
+    <center><h1>Will the current song be a hit????</h1>
+    <button type="button" class="btn btn-primary" onclick = "doThing()">Find</button></center><br/>
+    <div>
+        <div>
+          <h1 id="key"></h1>
+          <h1 id="result"></h1>
+        </div>
+        <div class ="energy progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            <span style="position: relative;">energy</span>
+        </div><br/>
+        <div class ="danceability progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            danceability
+        </div><br/>
+        <div class ="valence progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            positivity
+        </div><br/> 
   </div>
 
 
   <script>
   function doThing(){
-     token = "BQAO4EKs93ElY4bseSPe_KMcDetpIoZLOZymR0LjcBi2KvZnA7ekGTU02HvztTsXZD58W8pxo3EYTO1rK8Kh4ck3xkUym3BvflVRtgZ51UjsS7NkPcxDlcHsNkoDpqnAhk4I32YWz1QgTUADSQ";
+     token = "BQAfefiKzLJWsGbHmkuHh5AQaqv9CGh5fr-c_eCu9yNcIpSr1YXBKzcL6tHeVi0EU6TYTDnn0eh7ify1QhEc3FzysJewdgzah_D-FOj4dpvzmQJDRQxC4_NYa6Xxn7rS9ijTIeTccegwKxYGxQ";
      $.ajax({
         url: "  https://api.spotify.com/v1/me/player",
         beforeSend: function(xhr) {
@@ -29,17 +43,47 @@
             beforeSend: function(xhr) {
                  xhr.setRequestHeader("Authorization", "Bearer " + token)
             }, success: function(data2){
-              if(data2['key'] == 7 || data2['key'] == 0 || data['item']['artists'][0]['id'] == "3TVXtAsR1Inumwj472S9r4" || data2['danceability'] > 0.75){
-                alert("A hit is playing! (" + data['item']['name'] + ", by " + data['item']['artists'][0]['name'] + ")")
+              updateData(data, data2)
+              if(data2['key'] == 7 || data2['key'] == 0 || data['item']['artists'][0]['id'] == "3TVXtAsR1Inumwj472S9r4" || data2['danceability'] >= 0.7){
+                $("#result").html("Sounds like a hit!")
               }else{
-                alert("Doesn't sound like a hit to me.." + "(" + data['item']['name'] + ", by " + data['item']['artists'][0]['name'] + ") It has a danceability of " + data2['danceability'])
-                //process the JSON data etc
-              
+                $("#result").html("Not a hit")
               }
             }
           })
         }
       })
+   }
+   function updateData(data, data2){
+      var key = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+      $("#key").html(data['item']['name'] + ", by " + data['item']['artists'][0]['name'] + " is in the key of " + key[data2['key']])
+      $(".energy").attr("aria-valuenow", data2['energy'] * 100)
+      $(".energy").attr("style", "width:" + data2['energy'] * 100 + "%")
+      $(".danceability").attr("aria-valuenow", data2['danceability'] * 100)
+      $(".danceability").attr("style", "width:" + data2['danceability'] * 100 + "%")
+      $(".valence").attr("aria-valuenow", data2['valence'] * 100)
+      $(".valence").attr("style", "width:" + data2['valence'] * 100 + "%")
+      if(data2['energy'] >= 0.7){
+        $(".energy").attr("class", "energy progress-bar progress-bar-success")
+      }else if(data2['energy'] >= 0.3){
+        $(".energy").attr("class", "energy progress-bar")
+      }else{
+        $(".energy").attr("class", "energy progress-bar progress-bar-danger")
+      }
+      if(data2['danceability'] >= 0.7){
+        $(".danceability").attr("class", "danceability progress-bar progress-bar-success")
+      }else if(data2['energy'] >= 0.3){
+        $(".danceability").attr("class", "danceability progress-bar")
+      }else{
+        $(".danceability").attr("class", "danceability progress-bar progress-bar-danger")
+      }
+      if(data2['valence'] >= 0.7){
+        $(".valence").attr("class", "valence progress-bar progress-bar-success")
+      }else if(data2['energy'] >= 0.3){
+        $(".valence").attr("class", "valence progress-bar")
+      }else{
+        $(".valence").attr("class", "valence progress-bar progress-bar-danger")
+      }
    }
   </script>
 
