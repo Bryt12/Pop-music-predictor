@@ -24,7 +24,7 @@
             beforeSend: function(xhr) {
                  xhr.setRequestHeader("Authorization", "Bearer " + token)
             }, success: function(data2){
-              if(data2['key'] == 7 || data2['key'] == 0 || data['item']['artists'][0]['id'] == "3TVXtAsR1Inumwj472S9r4" || data2['danceability'] > 0.75){
+              if(data2['key'] == 7 || data2['key'] == 0 || data['item']['artists'][0]['id'] == "3TVXtAsR1Inumwj472S9r4" || data2['danceability'] > 0.7){
                 alert("A hit is playing! (" + data['item']['name'] + ", by " + data['item']['artists'][0]['name'] + ")")
               }else{
                 alert("Doesn't sound like a hit to me.." + "(" + data['item']['name'] + ", by " + data['item']['artists'][0]['name'] + ") It has a danceability of " + data2['danceability'])
