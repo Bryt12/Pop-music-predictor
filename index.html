@@ -81,11 +81,6 @@
               } else {
                 $("#result").html("Not a hit")
               }
-//               if(isInInterval("danceability", 0.1329, 0.661, data2)){
-//                 $("#result").html("Sounds like a hit!")
-//               }else{
-//                 $("#result").html("Not a hit")
-//               }
             }
           })
         }
@@ -98,15 +93,7 @@
 
    function isInInterval(attr, std, avg, data){
     interval = 1
-    // alert((data[attr] > avg - ((std/19.4679223339)*interval)) && (data[attr] < avg + ((std/19.4679223339)*interval)))
-    // console.log(avg - ((std)*interval))
-    // console.log(avg + ((std)*interval))
-    // console.log(data[attr])
-//     console.log(Math.abs((data[attr] - avg) / (std)))
-  //  console.log("dab")
-    // return (data[attr] > avg - ((std/19.4679223339)*interval)) && (data[attr] < avg + ((std/19.4679223339)*interval))
-    // return (data[attr] > avg - ((std)*interval)) && (data[attr] < avg + ((std)*interval))
-   return (Math.abs((data[attr] - avg) / (std)) < interval)
+    return (Math.abs((data[attr] - avg) / (std)) < interval)
    }
 
    function updateData(data, data2){
