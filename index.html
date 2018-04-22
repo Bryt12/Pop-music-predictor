@@ -38,8 +38,8 @@
 
 
   <script>
+  token = ""
   function doThing(){
-    alert(token)
      $.ajax({
         url: "  https://api.spotify.com/v1/me/player",
         beforeSend: function(xhr) {
@@ -62,7 +62,7 @@
       })
    }
    function updateToken(){
-    token = "\"" +$("#token_input").val() + "\""
+    token = $("#token_input").val()
     console.log(token)
    }
    function updateData(data, data2){
