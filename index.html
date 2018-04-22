@@ -3,12 +3,17 @@
 <head>
   <title>Spotify Web Playback SDK Quick Start Tutorial</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
 </head>
 <body>
-  <button onclick = "doThing()">Find</button>
+  <div>
+    <h1>Will the current song be a hit????</h1>
+    <button type="button" class="btn btn-primary" onclick = "doThing()">Find</button>
+  </div>
   <script>
   function doThing(){
-     token = "BQCXtDVYcZrdBLaI0MWDZwrTO2RvoZ5mmjwwzukevhe7MeR_8Dyns3JNW5rfnN0ZrtxM1kADIVIROh7DsyRteRzbyW2A_6TwxjlOr_DMqkwOUXIjMk86CFtUYZjlBvY9sWfSENYvNKeCh9zkMw";
+     token = "BQAO4EKs93ElY4bseSPe_KMcDetpIoZLOZymR0LjcBi2KvZnA7ekGTU02HvztTsXZD58W8pxo3EYTO1rK8Kh4ck3xkUym3BvflVRtgZ51UjsS7NkPcxDlcHsNkoDpqnAhk4I32YWz1QgTUADSQ";
      $.ajax({
         url: "  https://api.spotify.com/v1/me/player",
         beforeSend: function(xhr) {
@@ -31,5 +36,6 @@
       })
    }
   </script>
+
 </body>
 </html>
