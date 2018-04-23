@@ -4,5 +4,5 @@ An application that can tell if you the current song that you are listening to w
 
 ## Execution instructions
 Open `index.html` with your favorite web browser. Follow the instructions to get your OAuth
-token. Make sure you check `user-read-currently-playing` when generating the token. Plug
-that in, and when you are listening to music, just press find!
+token. Make sure you check `user-read-currently-playing` and `user-read-playback-state`
+ when generating the token. Plug that in, and when you are listening to music, just press find!
